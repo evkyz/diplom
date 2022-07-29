@@ -7,7 +7,6 @@ target
 <<<<<<< HEAD
 .gradle
 build
-data
 =======
 .gradle/
 build/
