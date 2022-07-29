@@ -1,0 +1,14 @@
+Thumbs.db*
+.DS_Store*
+node_modules
+.idea
+target
+*.iml
+<<<<<<< HEAD
+.gradle
+build
+data
+=======
+.gradle/
+build/
+>>>>>>> 4bbe943f01a86c9a3bef6c4586ae322328ccce66
