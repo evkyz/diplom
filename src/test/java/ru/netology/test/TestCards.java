@@ -31,7 +31,7 @@ public class TestCards {
     }
 
     @Test
-    @DisplayName("Тест оплаты с карты")
+    @DisplayName("Оплата с карты")
     void testCard() throws SQLException {
         StartPage startPage = new StartPage();
         val buyPage = startPage.buyPage();
@@ -42,7 +42,7 @@ public class TestCards {
     }
 
     @Test
-    @DisplayName("Тест оплаты с заблокированной карты")
+    @DisplayName("Оплата с заблокированной карты")
     void testBlockCard() throws SQLException {
         StartPage startPage = new StartPage();
         val buyPage = startPage.buyPage();
@@ -50,6 +50,28 @@ public class TestCards {
         buyPage.InfoCard(declinedCardInformation);
         buyPage.messageError();
         assertEquals("DECLINED", Db.buyStatus());
+    }
+
+    @Test
+    @DisplayName("Кредит с карты")
+    void testCardCredit() throws SQLException {
+        StartPage startPage = new StartPage();
+        val creditPage = startPage.creditPage();
+        val approvedCardInformation = DataHelper.getCardApproved();
+        creditPage.InfoCard(approvedCardInformation);
+        creditPage.messageSuccessfully();
+        assertEquals("APPROVED", Db.creditStatus());
+    }
+
+    @Test
+    @DisplayName("Кредит с заблокированной карты")
+    void testBlockCardCredit() throws SQLException {
+        StartPage startPage = new StartPage();
+        val creditPage = startPage.creditPage();
+        val declinedCardInformation = DataHelper.getCardDeclined();
+        creditPage.InfoCard(declinedCardInformation);
+        creditPage.messageError();
+        assertEquals("DECLINED", Db.creditStatus());
     }
 
     @Test
@@ -193,12 +215,32 @@ public class TestCards {
     }
 
     @Test
+    @DisplayName("Владелец заполнен строчными буквами") //Баг, при заполнении Успешно
+    void testNameLowercase() {
+        StartPage startPage = new StartPage();
+        val buyPage = startPage.buyPage();
+        val nameLowercase = DataHelper.getCardEnNameLowercase();
+        buyPage.InfoCard(nameLowercase);
+        buyPage.messageIncorrectFormat();
+    }
+
+    @Test
     @DisplayName("Владелец заполнен кирилиицей") //Баг, при заполнении Успешно
     void testNameRus() {
         StartPage startPage = new StartPage();
         val buyPage = startPage.buyPage();
         val nameRus = DataHelper.getCardRusName();
         buyPage.InfoCard(nameRus);
+        buyPage.messageIncorrectFormat();
+    }
+
+    @Test
+    @DisplayName("Владелец заполнен кирилиицей строчными буквами") //Баг, при заполнении Успешно
+    void testNameRusLowercase() {
+        StartPage startPage = new StartPage();
+        val buyPage = startPage.buyPage();
+        val nameRusLowercase = DataHelper.getCardRusNameLowercase();
+        buyPage.InfoCard(nameRusLowercase);
         buyPage.messageIncorrectFormat();
     }
 
@@ -269,6 +311,36 @@ public class TestCards {
         val buyPage = startPage.buyPage();
         val emptyCode = DataHelper.getCardEmptyCode();
         buyPage.InfoCard(emptyCode);
+        buyPage.messageIncorrectFormat();
+    }
+
+    @Test
+    @DisplayName("Неверный формат данных")
+    void testIncorrectFormat() {
+        StartPage startPage = new StartPage();
+        val buyPage = startPage.buyPage();
+        val incorrectFormat = DataHelper.getCardIncorrectFormat();
+        buyPage.InfoCard(incorrectFormat);
+        buyPage.messageIncorrectFormat();
+    }
+
+    @Test
+    @DisplayName("Неверные данные")
+    void testIncorrect() {
+        StartPage startPage = new StartPage();
+        val buyPage = startPage.buyPage();
+        val incorrect = DataHelper.getCardIncorrect();
+        buyPage.InfoCard(incorrect);
+        buyPage.messageIncorrectFormat();
+    }
+
+    @Test
+    @DisplayName("Данные не заполнены")
+    void testEmpty() {
+        StartPage startPage = new StartPage();
+        val buyPage = startPage.buyPage();
+        val empty = DataHelper.getCardEmpty();
+        buyPage.InfoCard(empty);
         buyPage.messageIncorrectFormat();
     }
 }

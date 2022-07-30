@@ -101,12 +101,26 @@ public class DataGenerate {
 
     static String getName() {
         Faker faker = new Faker(new Locale("en"));
+        return faker.name().fullName().toUpperCase(Locale.ROOT);
+    }
+
+    static String getNameLowercase() {
+        Faker faker = new Faker(new Locale("en"));
         return faker.name().fullName();
     }
 
     static String getRusName() {
         Faker faker = new Faker(new Locale("ru"));
+        return faker.name().fullName().toUpperCase(Locale.ROOT);
+    }
+
+    static String getRusNameLowercase() {
+        Faker faker = new Faker(new Locale("ru"));
         return faker.name().fullName();
+    }
+
+    static String getIncorrectName() {
+        return "!@#$% Яx";
     }
 
     static String getRusEnName() {
