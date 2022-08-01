@@ -13,7 +13,7 @@ public class Db {
         val deleteCredit = "DELETE FROM credit_request_entity";
         val deleteOrder = "DELETE FROM order_entity";
         val runner = new QueryRunner();
-        val connection = DriverManager.getConnection(System.getProperty("url"), ("app"), ("pass"));
+        val connection = DriverManager.getConnection(System.getProperty("url"), "app", "pass");
         {
             runner.update(connection, deletePayment);
             runner.update(connection, deleteCredit);
@@ -34,7 +34,7 @@ public class Db {
     private static String getDataBase(String query) throws SQLException {
         val runner = new QueryRunner();
         String dataBase = "";
-        val connection = DriverManager.getConnection(System.getProperty("url"), ("app"), ("pass"));
+        val connection = DriverManager.getConnection(System.getProperty("url"), "app", "pass");
         {
             dataBase = (String) runner.query(connection, query, new ScalarHandler());
         }

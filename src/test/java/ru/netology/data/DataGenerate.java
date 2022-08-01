@@ -119,6 +119,10 @@ public class DataGenerate {
         return faker.name().fullName();
     }
 
+    static String getOneName() {
+        return "A";
+    }
+
     static String getIncorrectName() {
         return "!@#$% Яx";
     }

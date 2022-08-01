@@ -215,7 +215,7 @@ public class TestCards {
     }
 
     @Test
-    @DisplayName("Владелец заполнен строчными буквами") //Баг, при заполнении Успешно
+    @DisplayName("Владелец заполнен строчными буквами")
     void testNameLowercase() {
         StartPage startPage = new StartPage();
         val buyPage = startPage.buyPage();
@@ -225,7 +225,17 @@ public class TestCards {
     }
 
     @Test
-    @DisplayName("Владелец заполнен кирилиицей") //Баг, при заполнении Успешно
+    @DisplayName("Владелец, одна буква")
+    void testNameOne() {
+        StartPage startPage = new StartPage();
+        val buyPage = startPage.buyPage();
+        val oneName = DataHelper.getCardOneName();
+        buyPage.InfoCard(oneName);
+        buyPage.messageIncorrectFormat();
+    }
+
+    @Test
+    @DisplayName("Владелец заполнен кирилиицей")
     void testNameRus() {
         StartPage startPage = new StartPage();
         val buyPage = startPage.buyPage();
@@ -235,7 +245,7 @@ public class TestCards {
     }
 
     @Test
-    @DisplayName("Владелец заполнен кирилиицей строчными буквами") //Баг, при заполнении Успешно
+    @DisplayName("Владелец заполнен кирилиицей строчными буквами")
     void testNameRusLowercase() {
         StartPage startPage = new StartPage();
         val buyPage = startPage.buyPage();
@@ -245,7 +255,7 @@ public class TestCards {
     }
 
     @Test
-    @DisplayName("Владелец заполнен латиницей и кирилиицей") //Баг, при заполнении Успешно
+    @DisplayName("Владелец заполнен латиницей и кирилиицей")
     void testNameRusEn() {
         StartPage startPage = new StartPage();
         val buyPage = startPage.buyPage();
@@ -255,7 +265,7 @@ public class TestCards {
     }
 
     @Test
-    @DisplayName("Владелец заполнен c использованием цифр") //Баг, при заполнении Успешно
+    @DisplayName("Владелец заполнен c использованием цифр")
     void testNameNumber() {
         StartPage startPage = new StartPage();
         val buyPage = startPage.buyPage();
@@ -265,7 +275,7 @@ public class TestCards {
     }
 
     @Test
-    @DisplayName("Владелец заполнен c использованием спец.символов") //Баг, при заполнении Успешно
+    @DisplayName("Владелец заполнен c использованием спец.символов")
     void testNameSymbol() {
         StartPage startPage = new StartPage();
         val buyPage = startPage.buyPage();
