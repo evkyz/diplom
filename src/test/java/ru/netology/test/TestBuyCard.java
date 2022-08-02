@@ -5,14 +5,14 @@ import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
 import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
-import ru.netology.data.Db;
+import ru.netology.data.DbUtils;
 import ru.netology.page.StartPage;
 import java.sql.SQLException;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestCards {
+public class TestBuyCard {
 
     @BeforeAll
     static void setUpAll() {
@@ -26,7 +26,7 @@ public class TestCards {
 
     @BeforeEach
     void setup() throws SQLException {
-        Db.deleteData();
+        DbUtils.deleteData();
         open("http://localhost:8080/");
     }
 
@@ -38,7 +38,7 @@ public class TestCards {
         val approvedCardInformation = DataHelper.getCardApproved();
         buyPage.InfoCard(approvedCardInformation);
         buyPage.messageSuccessfully();
-        assertEquals("APPROVED", Db.buyStatus());
+        assertEquals("APPROVED", DbUtils.buyStatus());
     }
 
     @Test
@@ -49,29 +49,7 @@ public class TestCards {
         val declinedCardInformation = DataHelper.getCardDeclined();
         buyPage.InfoCard(declinedCardInformation);
         buyPage.messageError();
-        assertEquals("DECLINED", Db.buyStatus());
-    }
-
-    @Test
-    @DisplayName("Кредит с карты")
-    void testCardCredit() throws SQLException {
-        StartPage startPage = new StartPage();
-        val creditPage = startPage.creditPage();
-        val approvedCardInformation = DataHelper.getCardApproved();
-        creditPage.InfoCard(approvedCardInformation);
-        creditPage.messageSuccessfully();
-        assertEquals("APPROVED", Db.creditStatus());
-    }
-
-    @Test
-    @DisplayName("Кредит с заблокированной карты")
-    void testBlockCardCredit() throws SQLException {
-        StartPage startPage = new StartPage();
-        val creditPage = startPage.creditPage();
-        val declinedCardInformation = DataHelper.getCardDeclined();
-        creditPage.InfoCard(declinedCardInformation);
-        creditPage.messageError();
-        assertEquals("DECLINED", Db.creditStatus());
+        assertEquals("DECLINED", DbUtils.buyStatus());
     }
 
     @Test

@@ -7,13 +7,17 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Db {
+public class DbUtils {
+    static String url = System.getProperty("url");
+    static String app = System.getProperty("app");
+    static String password = System.getProperty("password");
+
     public static void deleteData() throws SQLException {
         val deletePayment = "DELETE FROM payment_entity";
         val deleteCredit = "DELETE FROM credit_request_entity";
         val deleteOrder = "DELETE FROM order_entity";
         val runner = new QueryRunner();
-        val connection = DriverManager.getConnection(System.getProperty("url"), "app", "pass");
+        val connection = DriverManager.getConnection(url, app, password);
         {
             runner.update(connection, deletePayment);
             runner.update(connection, deleteCredit);
@@ -34,7 +38,7 @@ public class Db {
     private static String getDataBase(String query) throws SQLException {
         val runner = new QueryRunner();
         String dataBase = "";
-        val connection = DriverManager.getConnection(System.getProperty("url"), "app", "pass");
+        val connection = DriverManager.getConnection(url, app, password);
         {
             dataBase = (String) runner.query(connection, query, new ScalarHandler());
         }

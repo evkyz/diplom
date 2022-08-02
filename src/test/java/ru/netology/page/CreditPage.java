@@ -19,6 +19,9 @@ public class CreditPage {
     private SelenideElement button = $$(".button").find(exactText("Продолжить"));
     private SelenideElement successfully = $x("//div[text()='Успешно']");
     private SelenideElement error = $x("//div[text()='Ошибка']");
+    private SelenideElement incorrectFormat = $x("//span[@class=\"input__sub\"]");
+    private SelenideElement incorrectDeadline = $x("//span[text()='Неверно указан срок действия карты']");
+    private SelenideElement expiredDeadline = $x("//span[text()='Истёк срок действия карты']");
 
     public CreditPage() {
         heading.shouldBe(Condition.visible);
@@ -39,5 +42,17 @@ public class CreditPage {
 
     public void messageError() {
         error.shouldBe(Condition.visible, Duration.ofSeconds(15));
+    }
+
+    public void messageIncorrectFormat() {
+        incorrectFormat.shouldBe(Condition.visible, Duration.ofSeconds(15));
+    }
+
+    public void messageIncorrectDeadline() {
+        incorrectDeadline.shouldBe(Condition.visible, Duration.ofSeconds(15));
+    }
+
+    public void messageExpiredDeadline() {
+        expiredDeadline.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 }
